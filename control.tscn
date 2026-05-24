@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bq0rfs46edwli"]
+
+[ext_resource type="Script" uid="uid://bxsyx8fqxefh3" path="res://editor.gd" id="1_0fbet"]
+[ext_resource type="FontFile" uid="uid://c1vguqqc782as" path="res://fonts/VT323-Regular.ttf" id="1_ee4bf"]
+[ext_resource type="Script" uid="uid://cqks7cg6feks1" path="res://code_edit.gd" id="2_62e2m"]
+[ext_resource type="Script" uid="uid://b3w6ivq6qsey8" path="res://rich_text_label.gd" id="3_qtu10"]
+[ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="5_kbped"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.2901961, 0.34117648, 0.34901962, 1)
+corner_detail = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbped"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.14117648, 0.003921569, 0.08235294, 1)
+corner_detail = 15
+
+[sub_resource type="Theme" id="Theme_kbped"]
+default_font = ExtResource("1_ee4bf")
+default_font_size = 48
+CodeEdit/styles/normal = SubResource("StyleBoxFlat_ee4bf")
+RichTextLabel/colors/default_color = Color(0.96862745, 0.88235295, 0.84313726, 1)
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_kbped")
+
+[sub_resource type="Theme" id="Theme_fj5cn"]
+
+[node name="Control" type="Control" unique_id=1861339340]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -9.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kbped")
+script = ExtResource("1_0fbet")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=1237951973]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(300)
+split_offset = 300
+
+[node name="CodeEdit" type="CodeEdit" parent="HSplitContainer" unique_id=1323753686]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_fj5cn")
+script = ExtResource("2_62e2m")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer" unique_id=2009844044]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_qtu10")
+
+[node name="OSCServer" type="Node" parent="." unique_id=1821976330]
+script = ExtResource("5_kbped")
+metadata/_custom_type_script = "uid://w8v0v76wc4r2"

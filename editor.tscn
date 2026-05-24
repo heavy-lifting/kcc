@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://32iys8iriis4"]
+
+[ext_resource type="Script" uid="uid://1wo6ub61olp8" path="res://text.gd" id="1_wlowb"]
+
+[node name="Node2D" type="Node2D" unique_id=834927341]
+script = ExtResource("1_wlowb")
+
+[node name="Label" type="Label" parent="." unique_id=248514441]
+offset_left = 26.000002
+offset_top = 166.0
+offset_right = 66.0
+offset_bottom = 189.0
+scale = Vector2(4.6400023, 2.5600023)
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=2138115760]
+offset_left = 21.0
+offset_top = 80.000015
+offset_right = 89.5
+offset_bottom = 111.000015
+scale = Vector2(2.960493, 1.9101115)
+placeholder_text = "your name here"
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=992212967]
+offset_left = 794.0
+offset_top = 205.0
+offset_right = 802.0
+offset_bottom = 213.0
+scale = Vector2(-97.238304, 54.687843)
+
+[node name="Label2" type="Label" parent="." unique_id=1721067762]
+offset_left = 13.0
+offset_top = 28.0
+offset_right = 132.0
+offset_bottom = 51.0
+text = "line editor here"
+
+[node name="Label3" type="Label" parent="." unique_id=1445765995]
+offset_left = 13.0
+offset_top = 160.0
+offset_right = 53.0
+offset_bottom = 183.0
+text = "text editor here"
