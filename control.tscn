@@ -5,13 +5,14 @@
 [ext_resource type="Script" uid="uid://cqks7cg6feks1" path="res://code_edit.gd" id="2_62e2m"]
 [ext_resource type="Script" uid="uid://b3w6ivq6qsey8" path="res://rich_text_label.gd" id="3_qtu10"]
 [ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="5_kbped"]
+[ext_resource type="PackedScene" uid="uid://co60ol273vsid" path="res://palettes/bunny.tscn" id="6_fj5cn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
 content_margin_left = 15.0
 content_margin_top = 15.0
 content_margin_right = 15.0
 content_margin_bottom = 15.0
-bg_color = Color(0.2901961, 0.34117648, 0.34901962, 1)
+bg_color = Color(0.99013036, 0.6869549, 0.79215187, 1)
 corner_detail = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbped"]
@@ -57,6 +58,7 @@ split_offset = 300
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_fj5cn")
+caret_type = 1
 script = ExtResource("2_62e2m")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer" unique_id=2009844044]
@@ -68,3 +70,6 @@ script = ExtResource("3_qtu10")
 [node name="OSCServer" type="Node" parent="." unique_id=1821976330]
 script = ExtResource("5_kbped")
 metadata/_custom_type_script = "uid://w8v0v76wc4r2"
+
+[node name="Bunny" parent="." unique_id=144945253 instance=ExtResource("6_fj5cn")]
+position = Vector2(1232, 931)

@@ -5,6 +5,7 @@ extends CodeEdit
 @onready var network_manager = $"../.." # Point this to the node running the GHCI script above
 @onready var text_editor = $"."
 @onready var post_window = $"../RichTextLabel"
+@onready var palette = "res://palettes/bunnies.tres"
 
 func _gui_input(event):
 	if event is InputEventKey and event.pressed:

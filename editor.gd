@@ -37,7 +37,9 @@ func _on_osc_message_received(address: String, values): # , _time):
 	print("Received OSC from Tidal! Address: ", address, " Data: ", values)
 	if address == "/text":
 		print("changing text colour to ", values[1], " hehe")
-		text_editor.add_theme_color_override("font_color", Color(values[1]))
+		text_editor.add_theme_color_override("font_color", Color(values[1]))	
+	# 2. Apply the cursor color theme override
+		text_editor.add_theme_color_override("caret_color", Color(values[1]))
 		# 2. Trigger your theme changes!
 		#_flash_background_on_beat()
 	if address == "/bgr":

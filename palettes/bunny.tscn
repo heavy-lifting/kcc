@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://co60ol273vsid"]
+
+[ext_resource type="Script" uid="uid://c31d564fk44wo" path="res://bunny.gd" id="1_448jn"]
+[ext_resource type="Texture2D" uid="uid://j4vp5skv0354" path="res://sprites/bun0.png" id="2_2bcwi"]
+[ext_resource type="Texture2D" uid="uid://ctnw2j5tqpqpe" path="res://sprites/bun1.png" id="3_3sx0o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8rmic"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2bcwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3sx0o")
+}],
+"loop": true,
+"name": &"lr",
+"speed": 5.0
+}]
+
+[node name="Bunny" type="CharacterBody2D" unique_id=144945253]
+position = Vector2(162, 154)
+script = ExtResource("1_448jn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1107598035]
+sprite_frames = SubResource("SpriteFrames_8rmic")
+animation = &"lr"
+frame_progress = 0.9010547
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=867330872]
