@@ -72,4 +72,4 @@ script = ExtResource("5_kbped")
 metadata/_custom_type_script = "uid://w8v0v76wc4r2"
 
 [node name="Bunny" parent="." unique_id=144945253 instance=ExtResource("6_fj5cn")]
-position = Vector2(1010, 776)
+position = Vector2(1010, 773)
