@@ -5,6 +5,7 @@ extends Control
 
 @onready var text_editor = $HSplitContainer/CodeEdit
 @onready var osc_server = $OSCServer # Reference to your GodOSC node
+@onready var _animated_sprite = $Bunny/AnimatedSprite2D
 #extends Node
 
 var ghci_process: Dictionary
@@ -101,6 +102,12 @@ func _on_osc_message_received(address: String, values): # , _time):
 			new_stylebox.bg_color = Color(values[1])
 			# 4. Push it back onto the node
 			text_editor.add_theme_stylebox_override("normal", new_stylebox)
+			
+	if address == "/bun":
+		print("animating sprite.... changing frame to ", values[2])
+		_animated_sprite.frame = values[2] # not sure why this is coming through as 3rd thing in list...
+		
+		
 
 func _exit_tree():
 	stop_ghci()

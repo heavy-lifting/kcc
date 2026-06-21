@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cqks7cg6feks1" path="res://code_edit.gd" id="2_62e2m"]
 [ext_resource type="Script" uid="uid://b3w6ivq6qsey8" path="res://rich_text_label.gd" id="3_qtu10"]
 [ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="5_kbped"]
-[ext_resource type="PackedScene" uid="uid://co60ol273vsid" path="res://palettes/bunny.tscn" id="6_fj5cn"]
+[ext_resource type="PackedScene" uid="uid://co60ol273vsid" path="res://sprites/bunny.tscn" id="6_fj5cn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
 content_margin_left = 15.0
@@ -72,4 +72,4 @@ script = ExtResource("5_kbped")
 metadata/_custom_type_script = "uid://w8v0v76wc4r2"
 
 [node name="Bunny" parent="." unique_id=144945253 instance=ExtResource("6_fj5cn")]
-position = Vector2(1232, 931)
+position = Vector2(1010, 776)

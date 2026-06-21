@@ -23,6 +23,8 @@ position = Vector2(162, 154)
 script = ExtResource("1_448jn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1107598035]
+position = Vector2(122, 122)
+scale = Vector2(1.4765625, 1.4765625)
 sprite_frames = SubResource("SpriteFrames_8rmic")
 animation = &"lr"
 frame_progress = 0.9010547
