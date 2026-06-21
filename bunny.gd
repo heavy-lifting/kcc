@@ -28,12 +28,12 @@ const JUMP_VELOCITY = -400.0
 	#move_and_slide()
 
 
-func _process(_delta):
-	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left"):
-		if _animated_sprite.frame == 0:
-			_animated_sprite.frame = 1
-		else:
-			_animated_sprite.frame = 0
+#func _process(_delta):
+	#if Input.is_action_pressed("ui_right") or Input.is_action_pressed("ui_left"):
+		#if _animated_sprite.frame == 0:
+			#_animated_sprite.frame = 1
+		#else:
+			#_animated_sprite.frame = 0
 		#_animated_sprite.frame = 0
 		#print(_animated_sprite.frame)
 	#elif Input.is_action_pressed("ui_left"):
