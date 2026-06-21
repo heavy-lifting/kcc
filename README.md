@@ -16,7 +16,7 @@ Ideas:
 - turn on/off various default features (text animation etc)
 - godot prints to console too
 - ability to print to console direct from text editor
-- maybe some kind of "caw mode" a la ravioli where I can switch to a non-coding mode that does different stuff
+- maybe some kind of "caw mode" a la ravioli where I can switch to a non-coding mode that does different stuff - like maybe controlling the sprites?
 - animated text
 - code-able editor (e.g. colours, fonts, scroll, etc)
 - some nice image box to put a nice image in
