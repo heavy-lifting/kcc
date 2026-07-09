@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://b3w6ivq6qsey8" path="res://rich_text_label.gd" id="3_qtu10"]
 [ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="5_kbped"]
 [ext_resource type="PackedScene" uid="uid://co60ol273vsid" path="res://sprites/bunny.tscn" id="6_fj5cn"]
+[ext_resource type="Texture2D" uid="uid://dncfbubo7ie7j" path="res://sprites/speech-bubble-png-15291.png" id="6_iy58a"]
+[ext_resource type="Script" uid="uid://cbbhktv38jf41" path="res://speech_bubble.gd" id="7_6a6wx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
 content_margin_left = 15.0
@@ -26,6 +28,7 @@ corner_detail = 15
 [sub_resource type="Theme" id="Theme_kbped"]
 default_font = ExtResource("1_ee4bf")
 default_font_size = 48
+CodeEdit/colors/font_color = Color(1.102907, 1.1029092, 1.102907, 1)
 CodeEdit/styles/normal = SubResource("StyleBoxFlat_ee4bf")
 RichTextLabel/colors/default_color = Color(0.96862745, 0.88235295, 0.84313726, 1)
 RichTextLabel/styles/normal = SubResource("StyleBoxFlat_kbped")
@@ -61,15 +64,29 @@ theme = SubResource("Theme_fj5cn")
 caret_type = 1
 script = ExtResource("2_62e2m")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer" unique_id=2009844044]
-layout_direction = 2
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("3_qtu10")
-
 [node name="OSCServer" type="Node" parent="." unique_id=1821976330]
 script = ExtResource("5_kbped")
 metadata/_custom_type_script = "uid://w8v0v76wc4r2"
 
 [node name="Bunny" parent="." unique_id=144945253 instance=ExtResource("6_fj5cn")]
 position = Vector2(1010, 773)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=86254058]
+position = Vector2(1535, 597)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_iy58a")
+flip_h = true
+script = ExtResource("7_6a6wx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite2D" unique_id=2009844044]
+layout_direction = 2
+offset_left = -388.5715
+offset_top = -371.4286
+offset_right = 261.4285
+offset_bottom = 28.571411
+scale = Vector2(1.2, 1.2)
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.048806004, 0.15061724, 0.20689276, 1)
+theme_override_font_sizes/normal_font_size = 31
+text = "mmkmk"
+script = ExtResource("3_qtu10")
