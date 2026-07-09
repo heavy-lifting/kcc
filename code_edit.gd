@@ -7,14 +7,25 @@ extends CodeEdit
 @onready var post_window = $"../RichTextLabel"
 @onready var palette = "res://palettes/bunnies.tres"
 
+#func _gui_input(event):
+	#if event is InputEventKey and event.pressed:
+		## Check for Ctrl + Enter (or Cmd + Enter on macOS)
+		#if event.keycode == KEY_ENTER and (event.ctrl_pressed or event.meta_pressed):
+			#evaluate_current_code()
+			## Accept the event so a literal newline isn't inserted by accident
+			#accept_event() 
+		#elif event.keycode == KEY_PERIOD and (event.ctrl_pressed or event.meta_pressed):
+			#network_manager.send_to_tidal("hush")
+
 func _gui_input(event):
-	if event is InputEventKey and event.pressed:
+	# 1. Ignore key releases and ignore system echo repeats!
+	if event is InputEventKey and event.pressed and not event.is_echo():
 		# Check for Ctrl + Enter (or Cmd + Enter on macOS)
 		if event.keycode == KEY_ENTER and (event.ctrl_pressed or event.meta_pressed):
+			accept_event() # 2. Move this to the top of the block so Godot drops it immediately
 			evaluate_current_code()
-			# Accept the event so a literal newline isn't inserted by accident
-			accept_event() 
 		elif event.keycode == KEY_PERIOD and (event.ctrl_pressed or event.meta_pressed):
+			accept_event() # Accept this one too!
 			network_manager.send_to_tidal("hush")
 			
 
@@ -62,7 +73,14 @@ func evaluate_current_code():
 				
 				# 4. Push it back onto the node
 				text_editor.add_theme_stylebox_override("normal", unique_stylebox)
-				
+	
+	elif code_to_send.left(3) == "say":
+		var text_to_say = code_to_send.right(len(code_to_send)-3)
+		print(text_to_say)
+		network_manager.	ghci_output_received.emit(text_to_say)
+
+		
+	
 	else:
 		# Format multi-line blocks for GHCI if necessary
 		code_to_send = format_for_ghci(code_to_send)
