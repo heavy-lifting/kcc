@@ -14,7 +14,6 @@ okay wait i didn't keep notes but It's all in gemini and is basically fine. Even
 Ideas:
 - settings/config - e.g. location of BootTidal.hs
 - turn on/off various default features (text animation etc)
-- godot prints to console too
 - ability to print to console direct from text editor
 - maybe some kind of "caw mode" a la ravioli where I can switch to a non-coding mode that does different stuff - like maybe controlling the sprites?
 - animated text
@@ -31,8 +30,9 @@ ABSOLUTELY PAINFUL TIME trying to get OSC working but got there in the end (sort
 
 res://BootTidal.hs
 
-d1 $ oscS "red blue" # oscName "text"
+`d1 $ oscS "red blue" # oscName "text"` - to control editor params
 
+`say your message here` - prints messages
 
 ## palettes
 Want to work on putting in some nice palettes so it all looks coherent (also allow swapping on the fly which could be fun)
