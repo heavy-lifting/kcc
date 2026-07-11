@@ -35,6 +35,18 @@ RichTextLabel/styles/normal = SubResource("StyleBoxFlat_kbped")
 
 [sub_resource type="Theme" id="Theme_fj5cn"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6a6wx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sky72"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ytqx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxugv"]
+
 [node name="Control" type="Control" unique_id=1861339340]
 layout_mode = 3
 anchors_preset = 15
@@ -47,22 +59,40 @@ grow_vertical = 2
 theme = SubResource("Theme_kbped")
 script = ExtResource("1_0fbet")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=1237951973]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=58730182]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offsets = PackedInt32Array(300)
-split_offset = 300
 
-[node name="CodeEdit" type="CodeEdit" parent="HSplitContainer" unique_id=1323753686]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=815607170]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CodeEdit" type="CodeEdit" parent="PanelContainer/MarginContainer" unique_id=1323753686]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_fj5cn")
+theme_override_colors/font_selected_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(1.1031533, 1.1031533, 1.1031533, 0)
 caret_type = 1
 script = ExtResource("2_62e2m")
+
+[node name="TextOverlay" type="RichTextLabel" parent="PanelContainer/MarginContainer" unique_id=541618774]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6a6wx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sky72")
+theme_override_styles/background = SubResource("StyleBoxEmpty_0ytqx")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_pxugv")
+bbcode_enabled = true
+text = "kdkdkdkdkd $ "
 
 [node name="OSCServer" type="Node" parent="." unique_id=1821976330]
 script = ExtResource("5_kbped")

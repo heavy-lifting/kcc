@@ -2,7 +2,7 @@ extends CodeEdit
 
 #extends TextEdit
 
-@onready var network_manager = $"../.." # Point this to the node running the GHCI script above
+@onready var network_manager = $"../../.." # Point this to the node running the GHCI script above
 @onready var text_editor = $"."
 @onready var post_window = $"../RichTextLabel"
 @onready var palette = "res://palettes/bunnies.tres"
@@ -13,12 +13,16 @@ const FLOATING_LETTER_SCENE = preload("res://floating_letter.tscn")
 # Keep track of the last known text length to find what was typed
 var last_text_length: int = 0
 
+@onready var text_overlay: RichTextLabel = $"../TextOverlay"
+
 func _ready() -> void:
 	last_text_length = text.length()
 	# Connect the built-in text_changed signal to our function
 	text_changed.connect(_on_text_changed)
+	_update_visual_text()
 
 func _on_text_changed() -> void:
+	_update_visual_text()
 	var current_length = text.length()
 	
 	# Only trigger the effect if a character was actually added (typing, not deleting)
@@ -34,6 +38,44 @@ func _on_text_changed() -> void:
 			_spawn_floating_letter(typed_char, caret_pos)
 			
 	last_text_length = current_length
+
+func _update_visual_text() -> void:
+	var raw_code = text
+	var processed_bbcode = ""
+	
+	# Split into lines so we can read Tidal loops line-by-line
+	var lines = raw_code.split("\n")
+	
+	for i in range(lines.size()):
+		var line_text = lines[i]
+		
+		# Skip empty lines
+		if line_text.strip_edges() == "":
+			processed_bbcode += "\n"
+			continue
+			
+		# Apply distinct BBCode styles to different elements!
+		var styled_line = _apply_live_coding_effects(line_text)
+		processed_bbcode += styled_line + "\n"
+		
+	text_overlay.text = processed_bbcode
+
+func _apply_live_coding_effects(line: String) -> String:
+	# Example 1: If a line contains a heavy bass drum tag, make the whole line vibrate!
+	if "bd" in line:
+		return "[shake level=8 rate=30]" + line + "[/shake]"
+		
+	# Example 2: If a line dictates a continuous oscillator/sine effect like "rev" or "slow"
+	if "slow" in line or "rev" in line:
+		return "[wave amp=30.0 freq=5.0 debug=0]" + line + "[/wave]"
+		
+	# Example 3: Highlight specific structural symbols (like dollars or operators) with rainbow loops
+	if "$" in line:
+		# Let's replace just the '$' with a rainbow tornado
+		return line.replace("$", "[rainbow freq=1.0 sat=0.8][tornado radius=3 freq=5]$[/tornado][/rainbow]")
+		
+	# Default layout: just normal text if nothing special is happening
+	return line
 
 func _get_last_typed_character() -> String:
 	var caret_idx = get_caret_column()
