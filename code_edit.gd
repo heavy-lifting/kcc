@@ -5,13 +5,14 @@ extends CodeEdit
 @onready var network_manager = $"../../.." # Point this to the node running the GHCI script above
 @onready var text_editor = $"."
 @onready var post_window = $"../RichTextLabel"
-@onready var palette = "res://palettes/bunnies.tres"
+@onready var palette : ColorPalette = preload("res://palettes/bunnies.tres")
 
 # Preload the floating letter scene (update path to match your project)
 const FLOATING_LETTER_SCENE = preload("res://floating_letter.tscn")
 
 # Keep track of the last known text length to find what was typed
 var last_text_length: int = 0
+var last_text: String = ""
 
 @onready var text_overlay: RichTextLabel = $"../TextOverlay"
 
@@ -20,13 +21,35 @@ func _ready() -> void:
 	# Connect the built-in text_changed signal to our function
 	text_changed.connect(_on_text_changed)
 	_update_visual_text()
+	
+func _get_deleted_character() -> String:
+	# split old text state into lines
+	var old_lines = last_text.split("\n")
+	var current_line = get_caret_line()
+	var current_col = get_caret_column()
+	
+	var old_line_text = old_lines[current_line]
+	# EDGE CASE 1: Deleting a Line Break (Line Merge)
+	# If the cursor's current column matches or exceeds the old line's length,
+	# it means the cursor just jumped up from the line below it. 
+	# The character deleted was actually the newline character ("\n").
+	if current_col >= old_line_text.length():
+		return "↵" # Return a cool arrow symbol to represent the deleted return key!
+		
+	# EDGE CASE 2: Normal Mid-Line Deletion
+	# Ensure the index is safe to read
+	if current_col >= 0 and current_col < old_line_text.length():
+		return old_line_text[current_col]
+		
+	return ""
 
 func _on_text_changed() -> void:
 	_update_visual_text()
-	var current_length = text.length()
+	var current_text = text
+	#var current_length = text.length()
 	
 	# Only trigger the effect if a character was actually added (typing, not deleting)
-	if current_length > last_text_length:
+	if current_text.length() > last_text.length():
 		# 1. Grab the caret's relative pixel position inside the CodeEdit
 		var caret_pos = get_caret_draw_pos()
 		
@@ -36,8 +59,18 @@ func _on_text_changed() -> void:
 		# 3. Spawn the floating visual element
 		if typed_char != "" and typed_char != " " and typed_char != "\n":
 			_spawn_floating_letter(typed_char, caret_pos)
-			
-	last_text_length = current_length
+	
+	# trigger this if text is deleted
+	if current_text.length() < last_text.length():
+		var caret_pos = get_caret_draw_pos()
+		var deleted_char = _get_deleted_character()
+		print("deleted: ", deleted_char)
+		
+		if deleted_char != "" and deleted_char != " " and deleted_char != "\n":
+			# Pass 'true' for the is_deleted flag!
+			_spawn_floating_letter(deleted_char, caret_pos)
+	
+	last_text = current_text
 
 func _update_visual_text() -> void:
 	var raw_code = text
@@ -91,8 +124,21 @@ func _spawn_floating_letter(character: String, local_pos: Vector2) -> void:
 	var letter_instance = FLOATING_LETTER_SCENE.instantiate()
 	letter_instance.text = character
 	
+	# 2. Grab a color from your PackedColorArray
+	# (Replace "colors" with the exact variable name inside your bunnies.tres script)
+	var palette_colors = palette.colors
+	
+	var chosen_color = Color(1, 1, 1, 1) # Default to white fallback
+	
+	if palette_colors.size() > 0:
+		# OPTION A: Pick a completely random color from your palette
+		chosen_color = palette_colors[randi() % palette_colors.size()]
+		
+		# OPTION B: Or pick a specific index (e.g., the first color)
+		# chosen_color = palette_colors[0]
+	
 	# Match the theme font/color of your editor dynamically if you want!
-	letter_instance.add_theme_color_override("font_color", Color(1, 0.4, 0, 1)) # Juicy Orange/Neon
+	letter_instance.add_theme_color_override("font_color", chosen_color) 
 	
 	# Position it relative to the CodeEdit node
 	# Add a slight offset so it spawns perfectly on the cursor tip
