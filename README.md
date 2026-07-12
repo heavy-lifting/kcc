@@ -14,15 +14,18 @@ okay wait i didn't keep notes but It's all in gemini and is basically fine. Even
 Ideas:
 - settings/config - e.g. location of BootTidal.hs
 - turn on/off various default features (text animation etc)
-- ability to print to console direct from text editor
+- ~~ability to print to console direct from text editor~~
 - maybe some kind of "caw mode" a la ravioli where I can switch to a non-coding mode that does different stuff - like maybe controlling the sprites?
 - animated text
 - code-able editor (e.g. colours, fonts, scroll, etc)
 - some nice image box to put a nice image in
 - some way to set a background image/colour
-- autoscroll in post window
+- ~~autoscroll in post window~~
 - Ctrl+Enter highlight line
 - FIX TIDAL OSC DOCS THEY ARE SO BAD
+- some kind of UI for settings (colour palette)
+- make osc implementation more friendly - give things nicer names etc
+- multi-line eval
 
 
 ABSOLUTELY PAINFUL TIME trying to get OSC working but got there in the end (sort of... I can send it out from tidal but I'm not yet picking it up in godot)
