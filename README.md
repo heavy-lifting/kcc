@@ -24,7 +24,7 @@ Ideas:
 - Ctrl+Enter highlight line
 - FIX TIDAL OSC DOCS THEY ARE SO BAD
 - some kind of UI for settings (colour palette)
-- make osc implementation more friendly - give things nicer names etc
+- make osc implementation more friendly - give things nicer names etc (see also what Nik did with routing s and n via osc to tixl)
 - multi-line eval
 
 
