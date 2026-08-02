@@ -3,7 +3,8 @@ extends Control
 #@onready var code_edit: CodeEdit = $CodeEdit
 #@onready var label: Label = $Label
 
-@onready var text_editor = $HSplitContainer/CodeEdit
+@onready var text_editor = $PanelContainer/MarginContainer/CodeEdit # $HSplitContainer/CodeEdit
+@onready var text_overlay = $PanelContainer/MarginContainer/TextOverlay
 @onready var osc_server = $OSCServer # Reference to your GodOSC node
 @onready var _animated_sprite = $Bunny/AnimatedSprite2D
 #extends Node
@@ -38,7 +39,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 	print("Received OSC from Tidal! Address: ", address, " Data: ", values)
 	if address == "/text":
 		print("changing text colour to ", values[1], " hehe")
-		text_editor.add_theme_color_override("font_color", Color(values[1]))	
+		text_overlay.add_theme_color_override("default_color", Color(values[1]))	
 	# 2. Apply the cursor color theme override
 		text_editor.add_theme_color_override("caret_color", Color(values[1]))
 		# 2. Trigger your theme changes!
@@ -101,7 +102,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 			# 3. Directly access and swap the background color using your array
 			new_stylebox.bg_color = Color(values[1])
 			# 4. Push it back onto the node
-			text_editor.add_theme_stylebox_override("normal", new_stylebox)
+			text_overlay.add_theme_stylebox_override("normal", new_stylebox)
 			
 	if address == "/bun":
 		print("animating sprite.... changing frame to ", values[2])

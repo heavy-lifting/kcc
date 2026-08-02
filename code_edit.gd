@@ -4,6 +4,7 @@ extends CodeEdit
 
 @onready var network_manager = $"../../.." # Point this to the node running the GHCI script above
 @onready var text_editor = $"."
+@onready var text_overlay = $"../TextOverlay"
 @onready var post_window = $"../RichTextLabel"
 @onready var palette : ColorPalette = preload("res://palettes/bunnies.tres")
 
@@ -14,7 +15,7 @@ const FLOATING_LETTER_SCENE = preload("res://floating_letter.tscn")
 var last_text_length: int = 0
 var last_text: String = ""
 
-@onready var text_overlay: RichTextLabel = $"../TextOverlay"
+#@onready var text_overlay: RichTextLabel = $"../TextOverlay"
 
 func _ready() -> void:
 	last_text_length = text.length()
@@ -94,19 +95,47 @@ func _update_visual_text() -> void:
 	text_overlay.text = processed_bbcode
 
 func _apply_live_coding_effects(line: String) -> String:
-	# Example 1: If a line contains a heavy bass drum tag, make the whole line vibrate!
-	if "bd" in line:
-		return "[shake level=8 rate=30]" + line + "[/shake]"
-		
-	# Example 2: If a line dictates a continuous oscillator/sine effect like "rev" or "slow"
-	if "slow" in line or "rev" in line:
-		return "[wave amp=30.0 freq=5.0 debug=0]" + line + "[/wave]"
+	## Example 1: If a line contains a heavy bass drum tag, make the whole line vibrate!
+	#if "bd" in line:
+		#return "[shake level=8 rate=30]" + line + "[/shake]"
+		#
+	## Example 2: If a line dictates a continuous oscillator/sine effect like "rev" or "slow"
+	#if "slow" in line or "rev" in line:
+		#return "[wave amp=30.0 freq=5.0 debug=0]" + line + "[/wave]"
 		
 	# Example 3: Highlight specific structural symbols (like dollars or operators) with rainbow loops
 	if "$" in line:
 		# Let's replace just the '$' with a rainbow tornado
-		return line.replace("$", "[rainbow freq=1.0 sat=0.8][tornado radius=3 freq=5]$[/tornado][/rainbow]")
+		line = line.replace("$", "[rainbow freq=1.0 sat=0.8][tornado radius=3 freq=5]$[/tornado][/rainbow]")
 		
+	if "#" in line:
+		# Let's replace just the '$' with a rainbow tornado
+		line = line.replace("#", "[rainbow freq=1.0 sat=0.8][tornado radius=3 freq=5]#[/tornado][/rainbow]")
+
+
+	if "|" in line:
+		# Detect other operators
+		var regex = RegEx.new()
+		# Pattern: Escape the pipe with \| and match any character with .
+		# Note: Double backslash "\\" is required in GDScript strings to output a single backslash to regex.
+		regex.compile("\\|.")
+
+		# regex.sub(input, replacement, global)
+		# Passing `true` as the third argument replaces ALL occurrences in the string.
+		line = regex.sub(line, "[rainbow freq=1.0 sat=0.8][tornado radius=3 freq=5]$0[/tornado][/rainbow]", true)
+			
+	if "shake" in line:
+		# Let's replace just the '$' with a rainbow tornado
+		line = line.replace(line, str("[shake]",line,"[/shake]"))
+		
+	if "wave" in line:
+		# Let's replace just the '$' with a rainbow tornado
+		line = line.replace(line, str("[wave]", line, "[/wave]"))
+		
+	if "pulse" in line:
+		# Let's replace just the '$' with a rainbow tornado
+		line = line.replace(line, str("[pulse]", line, "[/pulse]"))
+			
 	# Default layout: just normal text if nothing special is happening
 	return line
 
@@ -185,7 +214,7 @@ func evaluate_current_code():
 			#print(string)
 		if string_array[1] == "text":
 			print("changing text colour to ", string_array[2], " hehe")
-			text_editor.add_theme_color_override("font_color", Color(string_array[2]))
+			text_overlay.add_theme_color_override("font_color", Color(string_array[2]))
 		
 		if string_array[1] == "bkg":
 			print("changing background colour to ", string_array[2], " hheeheeee")
@@ -200,7 +229,7 @@ func evaluate_current_code():
 			#text_editor.add_theme_stylebox_override("normal", temp_stylebox) 
 			# 1. Fetch the existing stylebox currently applied to your "normal" state
 			#    We cast it 'as StyleBoxFlat' so Godot knows it has a .bg_color property
-			var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
+			var current_stylebox = text_overlay.get_theme_stylebox("normal") as StyleBoxFlat
 
 			if current_stylebox:
 				# 2. Duplicate it! This creates a unique copy just for this node 
@@ -211,7 +240,7 @@ func evaluate_current_code():
 				unique_stylebox.bg_color = Color(string_array[2])
 				
 				# 4. Push it back onto the node
-				text_editor.add_theme_stylebox_override("normal", unique_stylebox)
+				text_overlay.add_theme_stylebox_override("normal", unique_stylebox)
 	
 	elif code_to_send.left(3) == "say":
 		var text_to_say = code_to_send.right(len(code_to_send)-3)
