@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var network_manager = $".." # Path to your GHCI node
 
 # Get a reference to the child text label
-@onready var text_label: RichTextLabel = $RichTextLabel
+@onready var text_label: RichTextLabel = $"../RichTextLabel"
 
 var bubble_tween: Tween
 
