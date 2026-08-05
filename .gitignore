@@ -3,3 +3,5 @@
 /android/
 
 *.exe
+*.tmp
+*.TMP
