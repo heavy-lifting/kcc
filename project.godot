@@ -13,13 +13,14 @@ config_version=5
 config/name="editor"
 run/main_scene="uid://bq0rfs46edwli"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://bj4rodmxedq1w"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/aspect="ignore"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

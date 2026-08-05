@@ -1,0 +1,141 @@
+[gd_scene format=4 uid="uid://bq0rfs46edwli"]
+
+[ext_resource type="Script" uid="uid://bxsyx8fqxefh3" path="res://editor.gd" id="1_0fbet"]
+[ext_resource type="FontFile" uid="uid://c1vguqqc782as" path="res://fonts/VT323-Regular.ttf" id="1_ee4bf"]
+[ext_resource type="Script" uid="uid://cqks7cg6feks1" path="res://code_edit.gd" id="2_62e2m"]
+[ext_resource type="Script" uid="uid://b3w6ivq6qsey8" path="res://rich_text_label.gd" id="3_qtu10"]
+[ext_resource type="TileSet" uid="uid://d4diukaw3qfo" path="res://sprites/tiny_town_tile_set.tres" id="4_sky72"]
+[ext_resource type="TileSet" uid="uid://diyyxfyks6y5m" path="res://sprites/tiny_farm_tile_set.tres" id="5_0ytqx"]
+[ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="5_kbped"]
+[ext_resource type="PackedScene" uid="uid://co60ol273vsid" path="res://sprites/bunny.tscn" id="6_fj5cn"]
+[ext_resource type="Script" uid="uid://cbbhktv38jf41" path="res://speech_bubble.gd" id="7_6a6wx"]
+[ext_resource type="Texture2D" uid="uid://bj4rodmxedq1w" path="res://sprites/Speechbubble.png" id="7_sky72"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.5058824, 0.2627451, 0.39607844, 1)
+corner_detail = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbped"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.14117648, 0.003921569, 0.08235294, 1)
+corner_detail = 15
+
+[sub_resource type="Theme" id="Theme_kbped"]
+default_font = ExtResource("1_ee4bf")
+default_font_size = 48
+CodeEdit/colors/font_color = Color(1.102907, 1.1029092, 1.102907, 1)
+CodeEdit/styles/normal = SubResource("StyleBoxFlat_ee4bf")
+RichTextLabel/colors/default_color = Color(0.96862745, 0.88235295, 0.84313726, 1)
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_kbped")
+
+[sub_resource type="Theme" id="Theme_fj5cn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6a6wx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sky72"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ytqx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pxugv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eh0v1"]
+
+[node name="Control" type="Control" unique_id=1861339340]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kbped")
+script = ExtResource("1_0fbet")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=58730182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=815607170]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="CodeEdit" type="CodeEdit" parent="PanelContainer/MarginContainer" unique_id=1323753686]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_fj5cn")
+theme_override_colors/font_selected_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(1.1031533, 1.1031533, 1.1031533, 0)
+caret_type = 1
+script = ExtResource("2_62e2m")
+
+[node name="Camera2D" type="Camera2D" parent="PanelContainer/MarginContainer/CodeEdit" unique_id=1874234922]
+anchor_mode = 0
+
+[node name="TextOverlay" type="RichTextLabel" parent="PanelContainer/MarginContainer" unique_id=541618774]
+clip_contents = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6a6wx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sky72")
+theme_override_styles/background = SubResource("StyleBoxEmpty_0ytqx")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_pxugv")
+bbcode_enabled = true
+text = "kdkdkdkdkd $ "
+
+[node name="TileMapLayer" type="TileMapLayer" parent="PanelContainer/MarginContainer" unique_id=1336227658]
+position = Vector2(0.00012207031, -2.999939)
+scale = Vector2(4.9999995, 4.9999995)
+tile_map_data = PackedByteArray("AAAAAAwAAAAAAAAAAAACAAwAAAAAAAAAAAADAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAHAAMAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAJAAwAAAABAAAAAAAKAAwAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAANAAwAAAAAAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAAAAAAAAAQAAwAAAABAAAAAAARAAwAAAAAAAAAAAASAAwAAAABAAAAAAATAAwAAAAHAAMAAAAUAAwAAAAHAAMAAAAVAAwAAAAHAAMAAAAWAAwAAAAAAAAAAAAXAAwAAAABAAAAAAAAAA0AAAAAAAAAAAABAA0AAAABAAAAAAACAA0AAAAAAAAAAAADAA0AAAABAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAABAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAABAAAAAAAIAA0AAAABAAAAAAAJAA0AAAABAAAAAAAKAA0AAAABAAAAAAALAA0AAAABAAAAAAAMAA0AAAAAAAAAAAANAA0AAAABAAAAAAAOAA0AAAAAAAAAAAAPAA0AAAABAAAAAAAQAA0AAAAAAAAAAAARAA0AAAAAAAAAAAASAA0AAAAAAAAAAAATAA0AAAAAAAAAAAAUAA0AAAAAAAAAAAAVAA0AAAAHAAMAAAAWAA0AAAAHAAMAAAAXAA0AAAAAAAAAAAAYAA0AAAAAAAAAAAAYAAwAAAAAAAAAAAABAAwAAAABAAAAAAA=")
+tile_set = ExtResource("4_sky72")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="PanelContainer/MarginContainer/TileMapLayer" unique_id=510068517]
+tile_map_data = PackedByteArray("AAAJAAwAAAAFAAEAAAASAA0AAAAFAAIAAAAFAAwAAAAEAAEAAAAFAAsAAAAEAAAAAAABAA0AAAAJAAQAAAAPAAwAAAAHAAIAAAAPAAsAAAAHAAAAAAA=")
+tile_set = ExtResource("4_sky72")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="PanelContainer/MarginContainer/TileMapLayer/TileMapLayer" unique_id=1991748716]
+tile_map_data = PackedByteArray("AAANAAwAAAACAAoAAAADAAwAAAAAAAoAAAAXAA0AAAAGAAUAAAA=")
+tile_set = ExtResource("5_0ytqx")
+
+[node name="OSCServer" type="Node" parent="." unique_id=1821976330]
+script = ExtResource("5_kbped")
+metadata/_custom_type_script = "uid://w8v0v76wc4r2"
+
+[node name="Bunny" parent="." unique_id=144945253 instance=ExtResource("6_fj5cn")]
+position = Vector2(1630, 732)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=86254058]
+position = Vector2(1425, 542.00006)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_sky72")
+script = ExtResource("7_6a6wx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=2009844044]
+layout_direction = 2
+layout_mode = 0
+offset_left = 1194.0
+offset_top = 401.0
+offset_right = 1662.0
+offset_bottom = 641.0
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.32941177, 0.05882353, 0.14117648, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eh0v1")
+text = "mmkmk"
+script = ExtResource("3_qtu10")

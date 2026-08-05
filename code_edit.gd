@@ -92,7 +92,7 @@ func _update_visual_text() -> void:
 		var styled_line = _apply_live_coding_effects(line_text)
 		processed_bbcode += styled_line + "\n"
 		
-	text_overlay.text = processed_bbcode
+	text_overlay.text = processed_bbcode + "\n"
 
 func _apply_live_coding_effects(line: String) -> String:
 	## Example 1: If a line contains a heavy bass drum tag, make the whole line vibrate!
