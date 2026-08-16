@@ -8,14 +8,15 @@ extends Control
 @onready var osc_server = $OSCServer # Reference to your GodOSC node
 @onready var _animated_sprite = $Bunny/AnimatedSprite2D
 @onready var farm = $TileMapLayer
+@onready var palette : ColorPalette = preload("res://palettes/bunnies.tres")
 
-#extends Node
 
 var ghci_process: Dictionary
 var stdin: FileAccess
 var stdout: FileAccess
 var stderr: FileAccess
 var frame_count = 0
+var palette_count = 0
 
 @export var boot_script_path: String = "res://BootTidal.hs" # Path to your BootTidal.hs
 
@@ -41,10 +42,29 @@ func _on_osc_message_received(address: String, values): # , _time):
 		# For troubleshooting, let's print exactly what Tidal is sending us:
 	print("Received OSC from Tidal! Address: ", address, " Data: ", values)
 	if address == "/text":
-		print("changing text colour to ", values[1], " hehe")
-		text_overlay.add_theme_color_override("default_color", Color(values[1]))	
+		
+		var palette_colours = palette.colors
+		var palette_len = len(palette.colors)
+		print(palette_len, " colours in palette")
+		palette_count += 1
+		if palette_count >= palette_len:
+			palette_count = 0
+			
+		var chosen_colour = Color(1, 1, 1, 1) # Default to white fallback
+		
+		if palette_colours.size() > 0:
+			chosen_colour = palette_colours[palette_count]
+		
+		# OPTION B: Or pick a specific index (e.g., the first color)
+		# chosen_color = palette_colors[0]
+		
+		var current_bgc = text_editor.get_theme_stylebox("normal").bg_color
+		print("current bgc: ", current_bgc)
+		if current_bgc != chosen_colour:
+			print("changing text colour to "	, chosen_colour, " hehe")
+			text_overlay.add_theme_color_override("default_color", Color(chosen_colour))	
 	# 2. Apply the cursor color theme override
-		text_editor.add_theme_color_override("caret_color", Color(values[1]))
+		text_editor.add_theme_color_override("caret_color", Color(chosen_colour))
 		# 2. Trigger your theme changes!
 		#_flash_background_on_beat()
 	elif address == "/bgr":
@@ -108,27 +128,33 @@ func _on_osc_message_received(address: String, values): # , _time):
 			text_overlay.add_theme_stylebox_override("normal", new_stylebox)
 			
 	elif address == "/bun":
-		print("animating sprite.... changing frame to ", values[2])
+		#print("animating sprite.... changing frame to ", values[2])
 		_animated_sprite.frame = values[2] # not sure why this is coming through as 3rd thing in list...
 		
 	elif address == "/drum":
-		print("shaking stuff!!!")
+		#print("shaking stuff!!!")
 		farm.trigger_shake()
-		print("frame count: ", frame_count)
+		#print("frame count: ", frame_count)
 		var sprite_frames = _animated_sprite.sprite_frames.get_frame_count("lr")
-		print("the bunny animation has ", sprite_frames , " frames")
+		#print("the bunny animation has ", sprite_frames , " frames")
 		frame_count += 1
-		print("updated frame count:  ", frame_count)
+		#print("updated frame count:  ", frame_count)
 		if frame_count >= sprite_frames:
 			frame_count = 0
 		_animated_sprite.frame = frame_count
 		
-		
+	elif address == "/clock":
+		#var current_cycle = args[0]
+		#var cps = args[1] # <--- Here is your tempo!
+		## Now you can map this to animation speeds
+		#var bpm = cps * 60.0
+		#Engine.time_scale = cps # or use it to drive a custom shader uniform	
+		print("receiving clock")
 
 		
 	else:
 		print("address: ", address, " - values: ", values)	
-		print("incoming sound event: ", values[4])
+		print("incoming sound event: ", values[3])
 
 func _exit_tree():
 	stop_ghci()

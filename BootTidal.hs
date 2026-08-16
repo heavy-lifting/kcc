@@ -16,7 +16,7 @@ let target = Target {   oName = "visualiser",   -- A friendly name for the targe
                         oHandshake = False,     -- SuperDirt specific
                         oBusPort = Nothing      -- Also SuperDirt specific
                     }
-    oscplay = OSC "/{oscName}" $ ArgList [("oscF", Just $ VF 0.0), ("oscS", Just $ VS ""), ("oscI", Just $ VI 0), ("n", Nothing), ("s", Nothing)] -- setting defaults as otherwise need to include all in patterns
+    oscplay = OSC "/{oscName}" $ ArgList [("oscF", Just $ VF 0.0), ("oscS", Just $ VS ""), ("oscI", Just $ VI 0), ("s", Nothing)] -- setting defaults as otherwise need to include all in patterns
     oscName = pS "oscName"
     oscF = pF "oscF" -- float values
     oscS = pS "oscS" -- string values
