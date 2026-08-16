@@ -40,6 +40,10 @@ res://BootTidal.hs
 
 `say your message here` - prints messages
 
+**UPDATE**
+- now adding `oscName "text"` to any lines changes text colour on each event by cycling through palette
+- not adding `oscName "drum"` to any line animates editor on each event
+
 ## palettes
 Want to work on putting in some nice palettes so it all looks coherent (also allow swapping on the fly which could be fun)
 
