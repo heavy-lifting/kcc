@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 
 
 @onready var _animated_sprite = $AnimatedSprite2D
+#@onready var frames = len(_animated_sprite.frames)
 #
 #
 #func _physics_process(delta: float) -> void:

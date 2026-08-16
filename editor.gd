@@ -7,12 +7,15 @@ extends Control
 @onready var text_overlay = $PanelContainer/MarginContainer/TextOverlay
 @onready var osc_server = $OSCServer # Reference to your GodOSC node
 @onready var _animated_sprite = $Bunny/AnimatedSprite2D
+@onready var farm = $TileMapLayer
+
 #extends Node
 
 var ghci_process: Dictionary
 var stdin: FileAccess
 var stdout: FileAccess
 var stderr: FileAccess
+var frame_count = 0
 
 @export var boot_script_path: String = "res://BootTidal.hs" # Path to your BootTidal.hs
 
@@ -44,7 +47,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 		text_editor.add_theme_color_override("caret_color", Color(values[1]))
 		# 2. Trigger your theme changes!
 		#_flash_background_on_beat()
-	if address == "/bgr":
+	elif address == "/bgr":
 		print("changing bgr to ", values[0])
 		var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
 		if current_stylebox:
@@ -55,7 +58,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 			base_color.r = values[0]          # Direct override
 			# 5. Assign the modified color back to the stylebox
 			current_stylebox.bg_color = base_color
-	if address == "/bgg":
+	elif address == "/bgg":
 		print("changing bgg to ", values[0])
 		var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
 		if current_stylebox:
@@ -67,7 +70,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 			# 5. Assign the modified color back to the stylebox
 			current_stylebox.bg_color = base_color
 	
-	if address == "/bgb":
+	elif address == "/bgb":
 		print("changing bgb to ", values[0])
 		var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
 		if current_stylebox:
@@ -79,7 +82,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 			# 5. Assign the modified color back to the stylebox
 			current_stylebox.bg_color = base_color
 	
-	if address == "/bga":
+	elif address == "/bga":
 		print("changing bga to ", values[0])
 		var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
 		if current_stylebox:
@@ -91,7 +94,7 @@ func _on_osc_message_received(address: String, values): # , _time):
 			# 5. Assign the modified color back to the stylebox
 			current_stylebox.bg_color = base_color
 		
-	if address == "/bgc":
+	elif address == "/bgc":
 		print("changing background to ", values[1])
 		var current_stylebox = text_editor.get_theme_stylebox("normal") as StyleBoxFlat
 
@@ -104,11 +107,28 @@ func _on_osc_message_received(address: String, values): # , _time):
 			# 4. Push it back onto the node
 			text_overlay.add_theme_stylebox_override("normal", new_stylebox)
 			
-	if address == "/bun":
+	elif address == "/bun":
 		print("animating sprite.... changing frame to ", values[2])
 		_animated_sprite.frame = values[2] # not sure why this is coming through as 3rd thing in list...
 		
+	elif address == "/drum":
+		print("shaking stuff!!!")
+		farm.trigger_shake()
+		print("frame count: ", frame_count)
+		var sprite_frames = _animated_sprite.sprite_frames.get_frame_count("lr")
+		print("the bunny animation has ", sprite_frames , " frames")
+		frame_count += 1
+		print("updated frame count:  ", frame_count)
+		if frame_count >= sprite_frames:
+			frame_count = 0
+		_animated_sprite.frame = frame_count
 		
+		
+
+		
+	else:
+		print("address: ", address, " - values: ", values)	
+		print("incoming sound event: ", values[4])
 
 func _exit_tree():
 	stop_ghci()

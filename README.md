@@ -26,6 +26,9 @@ Ideas:
 - some kind of UI for settings (colour palette)
 - make osc implementation more friendly - give things nicer names etc (see also what Nik did with routing s and n via osc to tixl)
 - multi-line eval
+- bubbles
+- someone can control a character with a controller
+
 
 
 ABSOLUTELY PAINFUL TIME trying to get OSC working but got there in the end (sort of... I can send it out from tidal but I'm not yet picking it up in godot)
